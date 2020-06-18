@@ -788,7 +788,7 @@ static int S_OR(lua_State* L) {
     return 1;
 }
 
-LUALIB_API int luaopen_brimworks_zip(lua_State* L) {
+LUALIB_API int luaopen_zip(lua_State* L) {
     static luaL_Reg fns[] = {
         { "open",     S_archive_open },
         { "OR",       S_OR },

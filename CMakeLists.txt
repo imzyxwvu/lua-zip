@@ -15,7 +15,7 @@ IF(LUA_ZIP_BUILD_SHARED)
 ENDIF()
 
 # Basic configurations
-  SET(INSTALL_CMOD share/lua/cmod CACHE PATH "Directory to install Lua binary modules (configure lua via LUA_CPATH)")
+  SET(INSTALL_CMOD lib/lua/5.1 CACHE PATH "Directory to install Lua binary modules (configure lua via LUA_CPATH)")
 # / configs
 
 # Find libzip
@@ -27,15 +27,10 @@ ENDIF()
   FIND_PACKAGE_HANDLE_STANDARD_ARGS(libzip  DEFAULT_MSG  LIBZIP_LIBRARY LIBZIP_INCLUDE_DIR)
 # / Find libzip
 
-# Find lua
-  FIND_PACKAGE(Lua REQUIRED)
-# / Find lua
-
 # Define how to build zip.so:
   INCLUDE_DIRECTORIES(${LIBZIP_INCLUDE_DIR} ${LUA_INCLUDE_DIR})
   ADD_LIBRARY(cmod_zip ${LUA_ZIP_LIBRARY_TYPE} lua_zip.c lua_zip.def)
   SET_TARGET_PROPERTIES(cmod_zip PROPERTIES PREFIX "")
-  SET_TARGET_PROPERTIES(cmod_zip PROPERTIES LIBRARY_OUTPUT_DIRECTORY brimworks)
   SET_TARGET_PROPERTIES(cmod_zip PROPERTIES OUTPUT_NAME zip)
   TARGET_LINK_LIBRARIES(cmod_zip ${LUA_LIBRARIES} ${LIBZIP_LIBRARY})  
 # / build zip.so
@@ -47,5 +42,5 @@ ENDIF()
 # / test zip.so
 
 # Where to install stuff
-  INSTALL (TARGETS cmod_zip DESTINATION ${INSTALL_CMOD}/brimworks)
+  INSTALL (TARGETS cmod_zip DESTINATION ${INSTALL_CMOD})
 # / Where to install.
